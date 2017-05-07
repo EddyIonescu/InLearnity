@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<!--  This site was created in Webflow. http://www.webflow.com -->
+<!--  Last Published: Sun May 07 2017 19:27:48 GMT+0000 (UTC)  -->
+<html data-wf-page="590e2dedfaa2b403e1630d60" data-wf-site="590e2dedfaa2b403e1630d5f">
+
+<head>
+  <meta charset="utf-8">
+  <title>InLearnity Projects</title>
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta content="Webflow" name="generator">
+  <link href="css/normalize.css" rel="stylesheet" type="text/css">
+  <link href="css/webflow.css" rel="stylesheet" type="text/css">
+  <link href="css/inlearnity-projects.webflow.css" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
+  <script type="text/javascript">
+    WebFont.load({
+      google: {
+        families: ["Ubuntu:300,300italic,400,400italic,500,500italic,700,700italic"]
+      }
+    });
+  </script>
+  <script src="js/modernizr.js" type="text/javascript"></script>
+  <link href="https://daks2k3a4ib2z.cloudfront.net/img/favicon.ico" rel="shortcut icon" type="image/x-icon">
+  <link href="https://daks2k3a4ib2z.cloudfront.net/img/webclip.png" rel="apple-touch-icon">
+  <script type="text/javascript">
+    var Webflow = Webflow || [];
+    Webflow.push(function () {
+      // === Custom Form Handling ===
+      // unbind webflow form handling
+      $(document).off('submit');
+      // new form handling
+      $('form').submit(function (evt) {
+        evt.preventDefault();
+        const url = `https://mdfq4ktto6.execute-api.us-west-1.amazonaws.com/lambda1/search/?q=${document.getElementById("field").value}`;
+
+        // todo - ensure the cors/no-cors is done properly - might have to configure backend
+        fetch(url).then(function (response) {
+          console.log(response.headers.get('Content-Type'));
+          console.log(response.headers.get('Date'));
+
+          console.log(response.status);
+          console.log(response.statusText);
+          console.log(response.type);
+          console.log(response.url);
+
+          return response.json();
+
+        }).then(data => {
+          console.log(data);
+          let answer = "";
+          
+          for(key in data) {
+            const result = data[key];
+            console.log(result);
+            answer += result.title + "\n" + result.link + "\n\n\n";
+          };
+          alert (answer);
+          
+        });
+      });
+    });
+  </script>
+</head>
+
+<body class="body">
+  <div class="header">
+    <div class="inlearnity-logo"></div>
+    <h1 class="projects">Projects</h1>
+    <div class="background-icons" data-ix="highlight-background-icons"></div>
+    <h1 class="heading">Find the best learning content for your project</h1>
+  </div>
+  <div class="search-fields">
+    <div class="form-wrapper w-form">
+      <form class="form" data-name="Email Form" id="email-form" method="post" name="email-form">
+        <div data-ix="show-guide-when-scroll">
+          <div class="mentorheader w-clearfix">
+            <div class="mentor"></div>
+            <div class="arrow"></div>
+            <div class="text-block">What is the name of your project?</div>
+          </div>
+          <input class="w-input" data-name="Project name" id="Project-name" maxlength="256" name="Project-name" placeholder="Example: Music app"
+            type="text">
+        </div>
+        <div data-ix="show-guide-when-scroll">
+          <div class="mentorheader w-clearfix" data-ix="hide-as-standard-2">
+            <div class="mentor"></div>
+            <div class="arrow"></div>
+            <div class="text-block">What kind of project are you building?</div>
+          </div>
+          <div class="project-category-list w-clearfix">
+            <a class="result-preview-box-1 w-inline-block" href="#"></a>
+            <a class="result-preview-box-2 w-inline-block" href="#"></a>
+            <div class="result-preview-box-3 w-clearfix w-radio" data-ix="go-to-result">
+              <input class="radio-button w-radio-input" data-name="Project category" id="Web app" name="Project-category" type="radio"
+                value="Web app">
+              <label class="result-preview w-form-label web-app" for="Web app">Web app</label>
+            </div>
+            <div class="result-preview-box-4 w-clearfix w-radio" data-ix="go-to-result-2">
+              <input class="radio-button w-radio-input" data-name="Project category" id="iOS app" name="Project-category" type="radio"
+                value="iOS app">
+              <label class="iosapp result-preview w-form-label" for="iOS app">iOS app</label>
+            </div>
+            <div class="result-preview-box-5 w-clearfix w-radio" data-ix="go-to-result-3">
+              <input class="radio-button w-radio-input" data-name="Project category" id="Android app" name="Project-category" type="radio"
+                value="Android app">
+              <label class="android result-preview w-form-label" for="Android app">Android app</label>
+            </div>
+          </div>
+        </div>
+        <div data-ix="show-guide-when-scroll">
+          <div class="mentorheader w-clearfix" data-ix="hide-as-standard-2">
+            <div class="mentor"></div>
+            <div class="arrow"></div>
+            <div class="text-block">What is your project about?</div>
+          </div>
+          <textarea class="w-input" id="field" maxlength="5000" name="field" placeholder="Description text"></textarea>
+        </div>
+        <input class="search-button w-button" data-ix="search" data-wait="Please wait..." type="submit" value="Search">
+      </form>
+      <div class="success-message w-form-done w-hidden-main w-hidden-medium w-hidden-small w-hidden-tiny"></div>
+      <div class="w-form-fail">
+        <div>Oops! Something went wrong while submitting the form</div>
+      </div>
+    </div>
+  </div>
+  <div class="results" data-ix="hide-as-standard">
+    <div class="mentorheader w-clearfix">
+      <div class="mentor"></div>
+      <div class="arrow"></div>
+      <div class="text-block">Here is the content I found:</div>
+    </div>
+    <div class="result">
+      <div class="resultpreviewgradient">
+        <div class="sourcelogo"></div>
+        <h1 class="resultname">Name of result</h1>
+        <div class="description-preview">This is some text inside of a div block.</div>
+        <div class="open-button">Open</div>
+      </div><img class="_100percentsize" src="https://d3e54v103j8qbb.cloudfront.net/img/image-placeholder.svg">
+    </div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
+  <script src="js/webflow.js" type="text/javascript"></script>
+  <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
+</body>
+
+</html>
